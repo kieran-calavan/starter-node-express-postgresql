@@ -1,7 +1,8 @@
 const productsService = require("./products.service")
 
-function read(productId) {
-  return knex("products").select("*").where({ product_id: productId }).first();
+function read(req, res) {
+  const { product: data } = res.locals;
+  res.json({ data });
 }
 
 function list(req, res, next) {
@@ -25,6 +26,6 @@ function productExists(req, res, next) {
 }
 
 module.exports = {
-  read: [read],
+  read: [productExists, read],
   list: [list],
 };
